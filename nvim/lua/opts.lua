@@ -5,6 +5,7 @@ vim.opt.incsearch = true
 vim.opt.ignorecase = true
 vim.opt.wrap = true
 vim.opt.splitbelow = true
+vim.opt.swapfile = false
 -- TAB settings 
 vim.opt.tabstop = 2 
 vim.opt.shiftwidth = 2

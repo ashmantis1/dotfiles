@@ -26,7 +26,7 @@ require("lazy").setup({
     opts = {
 
       filesystem = {
-        hijack_netrw_behavior = "open_default"
+        hijack_netrw_behavior = "open_current"
       }
     },
     dependencies = {
