@@ -10,5 +10,5 @@ if type "xrandr"; then
     fi
   done
 else
-  polybar --reload example &
+  polybar --reload top &
 fi
