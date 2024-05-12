@@ -1,10 +1,11 @@
 #!/bin/bash 
 
 # Setup symlinks 
-
-ln -sf $(pwd)/nvim $HOME/.config/
-ln -sf $(pwd)/bash/bashrc $HOME/.bashrc
-ln -sf $(pwd)/alacritty $HOME/.config/
-ln -sf $(pwd)/polybar $HOME/.config/
-ln -sf $(pwd)/rofi/tokyonight_custom.rasi $HOME/.local/share/rofi/themes
-ln -sf $(pwd)/rofi $HOME/.config/
+WORKDIR=$(pwd)
+ln -sf $WORKDIR/i3 $HOME/.config/
+ln -sf $WORKDIR/nvim $HOME/.config/
+ln -sf $WORKDIR/bash/bashrc $HOME/.bashrc
+ln -sf $WORKDIR/alacritty $HOME/.config/
+ln -sf $WORKDIR/polybar $HOME/.config/
+ln -sf $WORKDIR/rofi/tokyonight_custom.rasi $HOME/.local/share/rofi/themes
+ln -sf $WORKDIR/rofi $HOME/.config/
