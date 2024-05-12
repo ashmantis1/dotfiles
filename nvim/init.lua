@@ -1,67 +1,12 @@
+require('plug')
+require('opts')
+require('keys')
 
-vim.opt.number = true
-vim.opt.hlsearch = true 
-vim.opt.incsearch = true
-vim.opt.ignorecase = true
-vim.opt.wrap = true
-vim.opt.splitbelow = true
--- TAB settings 
-vim.opt.tabstop = 2 
-vim.opt.shiftwidth = 2
-vim.opt.softtabstop = 2 
-vim.opt.expandtab = true
--- Keymaps 
-vim.keymap.set('', '<C-n>', '<cmd>Neotree toggle<cr>')
-vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
-vim.keymap.set('', '<C-t>', '<cmd>ToggleTerm<cr>')
--- Open term in insert
-vim.api.nvim_create_autocmd({ "TermOpen", "BufEnter" }, {
-    pattern = { "*" },
-    callback = function()
-        if vim.opt.buftype:get() == "terminal" then
-            vim.cmd(":startinsert")
-        end
-    end
-})
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
-end
-vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup({
---   {'preservevim/nerdtree'},
-  {'nvim-treesitter/nvim-treesitter'},
-  {'folke/tokyonight.nvim'},
-  {
-    'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' }
-  },
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-      "MunifTanjim/nui.nvim",
-      -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
-    }
-  },
-  {'akinsho/toggleterm.nvim', version = "*", config = true},
-
-})
-
+-- Plugin Requirements 
+require("mason").setup()
+require("mason-lspconfig").setup()
 require('lualine').setup()
-
-vim.opt.termguicolors = true 
-vim.cmd.colorscheme('tokyonight-night')
 
 require'nvim-treesitter.configs'.setup {
   highlight = {
@@ -73,3 +18,22 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 }
+-- Auto complete setup 
+local lsp_zero = require('lsp-zero')
+
+lsp_zero.on_attach(function(client, bufnr)
+  -- see :help lsp-zero-keybindings
+  -- to learn the available actions
+  lsp_zero.default_keymaps({buffer = bufnr})
+end)
+
+-- Language Server
+--local lspconfig = require('lspconfig')
+--lspconfig.rust_analyzer.setup {
+--  -- Server-specific settings. See `:help lspconfig-setup`
+--  settings = {
+--    ['rust-analyzer'] = {},
+--  },
+--}
+
+
