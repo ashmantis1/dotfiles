@@ -28,12 +28,12 @@ lsp_zero.on_attach(function(client, bufnr)
 end)
 
 -- Language Server
---local lspconfig = require('lspconfig')
---lspconfig.rust_analyzer.setup {
---  -- Server-specific settings. See `:help lspconfig-setup`
---  settings = {
---    ['rust-analyzer'] = {},
---  },
---}
+local lspconfig = require('lspconfig')
+lspconfig.rust_analyzer.setup {
+  -- Server-specific settings. See `:help lspconfig-setup`
+  settings = {
+    ['rust-analyzer'] = {},
+  },
+}
 
 

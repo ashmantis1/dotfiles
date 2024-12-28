@@ -48,7 +48,7 @@ workspace_layout default
 ##############################
 
 #border indicator on windows: 
-new_window pixel 1
+default_border none 
 
 # thin borders
 # hide_edge_borders both
@@ -179,13 +179,16 @@ hide_edge_borders smart
 # lock with a picture:
 #bindsym $mod+l exec i3lock -i  ~/.config/i3/i3-lock-screen.png -p default|win -t
 # lock by blurring the screen:
-bindsym $mod+Ctrl+l exec ~/.config/i3/scripts/blur-lock.sh
+
+set $lockimg ~/.config/wallpapers/beboplock.png
+bindsym $mod+Ctrl+l exec swaylock -i $lockimg
+bindsym $mod+shift+s exec  swaylock -i $lockimg -f && systemctl suspend
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+bindsym $mod+Shift+r exec swaymsg reload
 
 # keybinding list in editor:
 bindsym $mod+F1 exec xed ~/.config/i3/keybindings
@@ -219,7 +222,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+ctrl+h split h
+bindsym $mod+b split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -285,26 +288,20 @@ bindsym Print exec "scrot ~/%Y-%m-%d-%T-screenshot.png"
 ##########################################
 # configuration for workspace behaviour: #
 ##########################################
-workspace $ws2 output "DP-0"
-workspace $ws3 output "DP-4"
-workspace $ws7  output "DP-4"
-workspace $ws5 output "DP-4"
-workspace $ws1 output "HDMI-0"
-workspace $ws4 output "HDMI-0"
 
 #workspace $ws4 HDMI-0
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
+set $ws1 1
+set $ws2 2
+set $ws3 3
+set $ws4 4
+set $ws5 5
+set $ws6 6
+set $ws7 7
+set $ws8 8
+set $ws9 9
+set $ws10 10
 
 # use workspaces on different displays:
 # where you have to replace VGA-0/HDMI-0 with the names for your displays 
@@ -342,6 +339,8 @@ for_window [class=Thunar] focus
 for_window [class=Thunderbird] focus
 for_window [class=KeePassXC] focus
 
+for_window [title="^Bluetooth$"] floating enable
+for_window [title="^Volume Control$"] floating enable; resize set 500 400
 #############################################
 # autostart applications/services on login: #
 #############################################
@@ -373,7 +372,8 @@ exec --no-startup-id ~/.screenlayout/monitor.sh
 exec --no-startup-id nm-applet
 
 # set wallpaper
-exec --no-startup-id nitrogen --restore
+exec --no-startup-id swaybg -i ~/.config/wallpapers/wallpaper.png
+#exec --no-startup-id nitrogen --restore
 #exec --no-startup-id feh --bg-fill /usr/share/endeavouros/backgrounds/endeavouros_i3.png
 
 #set powersavings for display:
@@ -427,34 +427,8 @@ client.urgent		    $urgentred	$urgentred	$white		$purple		$yellowbrown
 ############################################
 # bar settings (input comes from i3blocks) #
 ############################################
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-# Start i3bar to display a workspace bar 
-# (plus the system information i3status finds out, if available)
-#bar {
-#		font pango:Noto Sans Regular 10, FontAwesome 10
-#		status_command i3blocks -c ~/.config/i3/i3blocks.conf
-#    position top 
-#    #	    	i3bar_command i3bar --transparency
-#    # it could be that you have no primary display set: set one (xrandr --output <output> --primary)
-#    # reference: https://i3wm.org/docs/userguide.html#_tray_output
-#    tray_output primary
-#    tray_padding 0
-#
-#    # When strip_workspace_numbers is set to yes, 
-#    # any workspace that has a name of the form 
-#    # “[n][:][NAME]” will display only the name.
-#    strip_workspace_numbers yes
-#
-#		colors {
-#		    separator          $purple
-#		    background         $darkgrey
-#		    statusline         $white
-#        focused_workspace	$mediumgrey	   	$grey		$darkgrey	$purple
-#        active_workspace	$lightblue      	$mediumgrey	$darkgrey	$purple
-#        inactive_workspace	$darkgrey   		$darkgrey	$grey		$purple
-#        urgent_workspace	$urgentred	    	$urgentred	$white		$purple 
-#    }
-#}
+#exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec_always --no-startup-id ~/.config/waybar/launch.sh
 
 # you can add different bars for multidisplay setups on each display:
 # set output HDMI-0 to the display you want the bar, --transparency can be set.
@@ -474,26 +448,21 @@ bindsym $mod+d exec rofi -modi drun -show drun \
 #bindsym F9 exec rofi -modi drun -show drun \
 #		-config ~/.config/rofi/rofidmenu.rasi
 		
-## rofi bindings for window menu (two bindings F10/$mod+t)
-
-bindsym $mod+t exec rofi -show window \
-		-config ~/.config/rofi/rofidmenu.rasi 
-
-bindsym F10 exec rofi -show window \
-		-config ~/.config/rofi/rofidmenu.rasi 
-
 
 #user keybinds
 bindsym $mod+shift+m exec --no-startup-id discord
 bindsym $mod+shift+p exec --no-startup-id keepassxc
-bindsym $mod+shift+s exec --no-startup-id steam
+bindsym $mod+shift+b exec --no-startup-id blueberry
+#bindsym $mod+shift+s exec --no-startup-id steam
 bindsym $mod+ctrl+a exec --no-startup-id toggleaudio
 
-#bind scratch pad
-#minimize
-bindsym $mod+minus move scratchpad
-#deminimize
-bindsym $mod+plus scratchpad show floating toggle
+# Move the currently focused window to the scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym $mod+Shift+Ctrl+minus scratchpad show
+
 
 # Resizing by 1
 bindsym $mod+Ctrl+Right resize shrink width 1 px or 1 ppt
@@ -509,10 +478,9 @@ bindsym $mod+Ctrl+Shift+Left resize grow width 10 px or 10 ppt
 
 #exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
-exec --no-startup-id picom --config /etc/xdg/picom.conf
+#exec --no-startup-id picom --config /etc/xdg/picom.conf
 #exec --no-startup-id steamcompmgr -n  
 #exec --no-startup-id picom  -b --unredir-if-possible --backend glx
 #exec_always --no-startup-id picom --config ~/.config/picom.conf
-exec_always --no-startup-id alttab
 
 

@@ -19,6 +19,7 @@ export VAULT_ADDR="https://vault.ashman.world"
 export EDITOR='code -w'
 export ANSIBLE_VAULT_PASSWORD_FILE=~/.vault-pass
 export VAULT_ADDR=https://vault.ashman.world
+PATH=$HOME/.local/bin:$PATH
 # Aliases
 alias k=kubectl
 alias kn='kubectl config set-context --current --namespace' 
