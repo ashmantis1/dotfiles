@@ -9,6 +9,7 @@ bind '"\e[A":history-search-backward'
 bind '"\e[B":history-search-forward'
 
 source <(kubectl completion bash)
+eval "$(fzf --bash)"
 complete -o default -F __start_kubectl k
 eval `ssh-agent -s` > /dev/null
 ssh-add /home/asher/.ssh/mainkey &> /dev/null
