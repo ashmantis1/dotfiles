@@ -285,6 +285,7 @@ workspace $ws1 output "DP-4"
 workspace $ws4 output "DP-4"
 
 assign [class="discord"] $ws4
+assign [class="vesktop"] $ws4
 assign [class="steam"] $ws5
 
 for_window [class="^steam$" title="^Friends List$"] floating enable
@@ -403,7 +404,7 @@ bindsym $mod+d exec rofi -modi drun -show drun \
 		# -config ~/.config/rofi/rofidmenu.rasi
                 
 #user keybinds
-bindsym $mod+shift+m exec --no-startup-id Discord
+bindsym $mod+shift+m exec --no-startup-id vesktop
 bindsym $mod+shift+s exec --no-startup-id steam
 
 #bind scratch pad
@@ -432,3 +433,7 @@ bindsym $mod+Ctrl+Shift+k resize grow height 10 px or 10 ppt
 bindsym $mod+Ctrl+Shift+j resize shrink height 10 px or 10 ppt
 bindsym $mod+Ctrl+Shift+h resize grow width 10 px or 10 ppt
 
+exec "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+
+# Most important 
+bindsym $mod+Ctrl+Shift+Alt+L exec firefox https://au.linkedin.com/
