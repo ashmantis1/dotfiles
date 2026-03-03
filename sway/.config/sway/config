@@ -14,9 +14,9 @@ set $mod Mod4
 ####################
 # Display layout:  #
 ####################
-output DP-6 pos 2560 927 res 2560x1440@165Hz
-output DP-4 pos 0 927 res 2560x1440@100Hz
-output DP-5 pos 5120 391 transform 90 res 2560x1440@100Hz
+output DP-1 pos 2560 927 res 2560x1440@165Hz
+output DP-2 pos 0 927 res 2560x1440@100Hz
+output DP-3 pos 5120 391 transform 90 res 2560x1440@100Hz
 #####################
 # workspace layout: #
 #####################
@@ -277,12 +277,12 @@ set $ws8 8
 set $ws9 9
 set $ws10 10
 
-workspace $ws2 output "DP-6"
-workspace $ws3 output "DP-5"
-workspace $ws7  output "DP-5"
-workspace $ws5 output "DP-5"
-workspace $ws1 output "DP-4"
-workspace $ws4 output "DP-4"
+workspace $ws1 output "DP-2"
+workspace $ws2 output "DP-1"
+workspace $ws3 output "DP-3"
+workspace $ws4 output "DP-2"
+workspace $ws5 output "DP-3"
+workspace $ws7  output "DP-3"
 
 assign [class="discord"] $ws4
 assign [class="vesktop"] $ws4
@@ -437,3 +437,6 @@ exec "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
 
 # Most important 
 bindsym $mod+Ctrl+Shift+Alt+L exec firefox https://au.linkedin.com/
+# Flameshot
+for_window [app_id="flameshot"] border pixel 0, floating enable, fullscreen disable, move absolute position 0 0
+focus output DP-1
